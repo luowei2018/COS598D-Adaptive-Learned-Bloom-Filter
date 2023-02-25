@@ -45,8 +45,15 @@ def Find_Optimal_Parameters(max_thres, min_thres, R_sum, train_negative, positiv
         '''
         Please finish the code to find bloom_filter_opt, thres_opt
         '''
-
-            
+        ML_positive = train_negative.loc[(train_negative['score'] > threshold), 'url']
+        bloom_negative = train_negative.loc[(train_negative['score'] <= threshold),  'url']
+        BF_positive = bloom_filter.test(bloom_negative, single_key = False)
+        FP_items = sum(BF_positive) + len(ML_positive)
+        print('Threshold: %f, False positive items: %d' %(round(threshold, 2), FP_items))
+        if FP_opt > FP_items:
+            FP_opt = FP_items
+            thres_opt = threshold
+            bloom_filter_opt = bloom_filter
         '''
         Ends here
         '''

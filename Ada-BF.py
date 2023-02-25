@@ -101,7 +101,38 @@ def Find_Optimal_Parameters(c_min, c_max, num_group_min, num_group_max, R_sum, t
         '''
         Please finish the code to find bloom_filter_opt, thresholds_opt, k_max_opt
         '''
+            for k in range(k_min, k_max):
+                i = k - k_min
+                score_1 = score[score < thresholds[-(i + 1)]]
+                if int(num_piece * c ** i) < len(score_1):
+                    thresholds[-(i + 2)] = score_1[-int(num_piece * c ** i)]
 
+            url = positive_sample['url']
+            score = positive_sample['score']
+
+            for score_s, url_s in zip(score, url):
+                ix = min(np.where(score_s < thresholds)[0])
+                k = k_max - ix
+                bloom_filter.insert(url_s, k)
+            ML_positive = train_negative.loc[(train_negative['score'] >= thresholds[-2]), 'url']
+            url_negative = train_negative.loc[(train_negative['score'] < thresholds[-2]), 'url']
+            score_negative = train_negative.loc[(train_negative['score'] < thresholds[-2]), 'score']
+
+            test_result = np.zeros(len(url_negative))
+            ss = 0
+            for score_s, url_s in zip(score_negative, url_negative):
+                ix = min(np.where(score_s < thresholds)[0])
+                k = k_max - ix
+                test_result[ss] = bloom_filter.test(url_s, k)
+                ss += 1
+            FP_items = sum(test_result) + len(ML_positive)
+            print('False positive items: %d, Number of groups: %d, c = %f' %(FP_items, k_max, round(c, 2)))
+
+            if FP_opt > FP_items:
+                FP_opt = FP_items
+                bloom_filter_opt = bloom_filter
+                thresholds_opt = thresholds
+                k_max_opt = k_max
             
         '''
         Ends here

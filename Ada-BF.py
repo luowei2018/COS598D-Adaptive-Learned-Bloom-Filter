@@ -50,9 +50,9 @@ x = data.loc[data['label']==1,'score']
 y = data.loc[data['label']==-1,'score']
 bins = np.linspace(0, 1, 25)
 
-plt.hist([x, y], bins, log=True, label=['Keys', 'non-Keys'])
+plt.hist([x, y], bins, log=True, label=['Malicious(Keys)', 'Benign(non-Keys)'])
 plt.legend(loc='upper right')
-plt.savefig('./Score_Dist.png')
+plt.savefig('./Classification_logit_scores_hist.png')
 plt.show()
 
 
@@ -97,10 +97,10 @@ def Find_Optimal_Parameters(c_min, c_max, num_group_min, num_group_max, R_sum, t
             num_piece = int(num_negative / tau) + 1
             score = train_negative.loc[(train_negative['score'] <= thresholds[-1]), 'score']
             score = np.sort(score)
-            
-        '''
-        Please finish the code to find bloom_filter_opt, thresholds_opt, k_max_opt
-        '''
+
+            '''
+            Please finish the code to find bloom_filter_opt, thresholds_opt, k_max_opt
+            '''
             for k in range(k_min, k_max):
                 i = k - k_min
                 score_1 = score[score < thresholds[-(i + 1)]]
@@ -114,6 +114,7 @@ def Find_Optimal_Parameters(c_min, c_max, num_group_min, num_group_max, R_sum, t
                 ix = min(np.where(score_s < thresholds)[0])
                 k = k_max - ix
                 bloom_filter.insert(url_s, k)
+
             ML_positive = train_negative.loc[(train_negative['score'] >= thresholds[-2]), 'url']
             url_negative = train_negative.loc[(train_negative['score'] < thresholds[-2]), 'url']
             score_negative = train_negative.loc[(train_negative['score'] < thresholds[-2]), 'score']
@@ -133,10 +134,10 @@ def Find_Optimal_Parameters(c_min, c_max, num_group_min, num_group_max, R_sum, t
                 bloom_filter_opt = bloom_filter
                 thresholds_opt = thresholds
                 k_max_opt = k_max
-            
-        '''
-        Ends here
-        '''
+            '''
+            Ends here
+            '''
+
     return bloom_filter_opt, thresholds_opt, k_max_opt
 
 

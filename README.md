@@ -2,7 +2,7 @@
 
 The python files include the implementation of the 1) Bloom filter (BF), 2) partial implementation of learned BF, and 3) partial implementation of Ada-BF, and 4) printing the size of False Positives of the corresponding algorithm.
 
-Your task is to complete function to search the optimal parameters for learned BF and Ada-BF. Specfically, you are required to use cross validataion to find the best threshold for the ML classifier output scores for learned BF in `learned_Bloom_filter.py`; and find the best number of groups (*g* in [1]) and the best threshold of density ratio (*c* in [1]) in `Ada_BF.py`. 
+Your task is to complete function to search the optimal parameters for learned BF and Ada-BF. Specfically, you are required to use cross validataion to find the best threshold for the ML classifier output scores for learned BF in `learned_Bloom_filter.py`; and find the best number of groups (*g* in [1]) and the best threshold of density ratio (*c* in [1]) in `Ada-BF.py`. 
 
 **Reference**
 
@@ -25,7 +25,7 @@ Your task is to complete function to search the optimal parameters for learned B
 
 ## Your Tasks:
 - [ ] Examine the ML classification logit scores for the URL dataset in `/Datasets/` by plotting the scores as a histogram using `matplotlib.pyplot.hist`. Please refer to Figure 2 of [1].
-- [ ] Implement the `Find_Optimal_Parameters` functions in `learned_Bloom_filter.py` and `Ada_BF.py`.
+- [ ] Implement the `Find_Optimal_Parameters` functions in `learned_Bloom_filter.py` and `Ada-BF.py`.
 - [ ] Compare FPR of Bloom filter (BF), learned BF, and Ada-BF with different memory budgets (Hash table sizes) using the provided URL dataset. To change the memory budget, you can set it by `--size_of_Ada_BF`. Please refer to Figure 4 of [1] to select the suitable range for the memory budget and plot your results.
 - [ ] You are required to submit a report to show the comparison results, discuss the results, and analyze the limitation of Ada-BF (i.e., explore the cases when Ada-BF losses its advantages).
 

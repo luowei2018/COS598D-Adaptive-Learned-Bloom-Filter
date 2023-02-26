@@ -51,6 +51,7 @@ y = data.loc[data['label']==-1,'score']
 bins = np.linspace(0, 1, 25)
 
 plt.hist([x, y], bins, log=True, label=['Malicious(Keys)', 'Benign(non-Keys)'])
+plt.title("Score Distribution of Malicious URLs")
 plt.legend(loc='upper right')
 plt.xlabel("Score")
 plt.ylabel("Count")

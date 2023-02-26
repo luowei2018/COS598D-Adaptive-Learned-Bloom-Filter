@@ -97,4 +97,6 @@ if __name__ == '__main__':
     bloom_filter.insert(query)
     query_negative = negative_sample['url']
     n1 = bloom_filter.test(query_negative, single_key=False)
+    FPR = sum(n1)/len(n1)
     print('False positive items: ', sum(n1))
+    print('False positive rate: ', FPR)

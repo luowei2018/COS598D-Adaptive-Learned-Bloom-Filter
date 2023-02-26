@@ -52,7 +52,7 @@ def line_plot(XX,YY,label,color,path,xlabel,ylabel,lbsize=labelsize_b,lfsize=lab
 		    arrow_coord[0], arrow_coord[1], "Better", ha="center", va="center", rotation=-45, size=lbsize-8,
 		    bbox=dict(boxstyle="larrow,pad=0.3", fc="white", ec="black", lw=2))
 	plt.tight_layout()
-	plt.title("False Positive Rates Comparison")
+	plt.title("False Positive Rates (FPR) Comparison")
 	if ncol!=0:
 		if ncol is None:
 			plt.legend(loc=legloc,fontsize = lfsize)
